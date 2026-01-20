@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Transportation | Folsom to San Francisco</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --safari-red: #c41e3a;
+            --safari-dark-red: #8b0000;
+            --white: #ffffff;
+            --off-white: #f8f8f8;
+            --text-dark: #2c2c2c;
+            --light-gray: #e0e0e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--off-white);
+        }
+
+        .top-bar {
+            background: var(--safari-dark-red);
+            color: white;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--safari-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--safari-red);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(196, 30, 58, 0.8), rgba(139, 0, 0, 0.8)), 
+                        linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--safari-red);
+        }
+
+        .btn-primary:hover {
+            background: var(--off-white);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--safari-red);
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: var(--safari-red);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            color: var(--safari-red);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+        }
+
+        .routes {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .route-map {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .route-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--off-white);
+            border-radius: 8px;
+            border-left: 4px solid var(--safari-red);
+        }
+
+        .route-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--safari-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .route-info h3 {
+            color: var(--safari-red);
+            margin-bottom: 5px;
+        }
+
+        .route-connector {
+            text-align: center;
+            color: var(--safari-red);
+            font-size: 24px;
+            margin: -10px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h3 {
+            color: var(--safari-red);
+            margin: 15px 0;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .schedule-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .schedule-card h3 {
+            color: var(--safari-red);
+            margin-bottom: 20px;
+        }
+
+        .schedule-time {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .cta-section {
+            background: var(--safari-red);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 30px auto 0;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--safari-red);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--light-gray);
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+        }
+
+        footer {
+            background: var(--safari-dark-red);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div>Folsom • UC Davis • Vacaville • San Francisco</div>
+            <div>
+                <a href="tel:+1234567890">☎ (234) 567-890</a>
+                <a href="mailto:info@safari.com">info@safari.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">SAFARI</a>
+            <button class="menu-toggle">☰</button>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#routes">Routes</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>SAFARI TRANSPORTATION</h1>
+        <p>Premium travel from Folsom to San Francisco</p>
+        <div>
+            <a href="#contact" class="btn btn-primary">Reserve Your Seat</a>
+            <a href="#routes" class="btn btn-secondary">View Routes</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-grid">
+            <div>
+                <h3>About Safari</h3>
+                <p>Safari provides reliable transportation services connecting Northern California's key locations.</p>
+                <p>We offer comfortable, professional service for commuters, students, and travelers.</p>
+            </div>
+            <div style="background: var(--safari-red); height: 300px; border-radius: 8px;"></div>
+        </div>
+    </section>
+
+    <div class="routes" id="routes">
+        <section>
+            <h2 class="section-title">Our Routes</h2>
+            
+            <div class="route-map">
+                <div class="route-step">
+                    <div class="route-icon">1</div>
+                    <div class="route-info">
+                        <h3>Folsom Light Rail Station</h3>
+                        <p>Starting point</p>
+                    </div>
+                </div>
+                
+                <div class="route-connector">↓</div>
+                
+                <div class="route-step">
+                    <div class="route-icon">2</div>
+                    <div class="route-info">
+                        <h3>UC Davis</h3>
+                        <p>Campus drop-off</p>
+                    </div>
+                </div>
+                
+                <div class="route-connector">↓</div>
+                
+                <div class="route-step">
+                    <div class="route-icon">3</div>
+                    <div class="route-info">
+                        <h3>Vacaville Mall</h3>
+                        <p>Rest stop</p>
+                    </div>
+                </div>
+                
+                <div class="route-connector">↓</div>
+                
+                <div class="route-step">
+                    <div class="route-icon">4</div>
+                    <div class="route-info">
+                        <h3>San Francisco</h3>
+                        <p>Downtown destination</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section>
+        <h2 class="section-title">Why Choose Safari?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Reliable</h3>
+                <p>On-time service</p>
+            </div>
+            <div class="feature-card">
+                <h3>Comfortable</h3>
+                <p>Modern vehicles</p>
+            </div>
+            <div class="feature-card">
+                <h3>Professional</h3>
+                <p>Experienced drivers</p>
+            </div>
+            <div class="feature-card">
+                <h3>Flexible</h3>
+                <p>Multiple times</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="schedule">
+        <h2 class="section-title">Schedule</h2>
+        
+        <div class="schedule-grid">
+            <div class="schedule-card">
+                <h3>Weekday Service</h3>
+                <div class="schedule-time">
+                    <span>Morning</span>
+                    <span>6:00 AM</span>
+                </div>
+                <div class="schedule-time">
+                    <span>Mid-Morning</span>
+                    <span>9:00 AM</span>
+                </div>
+                <div class="schedule-time">
+                    <span>Afternoon</span>
+                    <span>2:00 PM</span>
+                </div>
+                <div class="schedule-time">
+                    <span>Evening</span>
+                    <span>6:00 PM</span>
+                </div>
+            </div>
+            
+            <div class="schedule-card">
+                <h3>Weekend Service</h3>
+                <div class="schedule-time">
+                    <span>Morning</span>
+                    <span>8:00 AM</span>
+                </div>
+                <div class="schedule-time">
+                    <span>Midday</span>
+                    <span>12:00 PM</span>
+                </div>
+                <div class="schedule-time">
+                    <span>Afternoon</span>
+                    <span>4:00 PM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta-section" id="contact">
+        <h2>Reserve Your Seat</h2>
+        
+        <div class="contact-form">
+            <form>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Travel Date</label>
+                    <input type="date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Safari Transportation</h3>
+                <p>Premium Northern California travel</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#routes">Routes</a>
+                <a href="#schedule">Schedule</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>☎ (234) 567-890</p>
+                <p>✉ info@safari.com</p>
+            </div>
+        </div>
+        <p style="margin-top: 30px;">© 2026 Safari Transportation</p>
+    </footer>
+</body>
+</html>
